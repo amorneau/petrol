@@ -3,22 +3,31 @@
 from post import Post
 from writer import Writer
 
+import argparse
 import sys
 
-def print_usage():
-    usage_message = 'petrol <input_file1> [<input_file2> ...]'
-    print(usage_message)
+class Petrol:
+    def __init__(self, input_file_names, template_file_name):
+        self._input_file_names = input_file_names
+        self._template = open(template_file_name, 'r').read()
 
-if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        print_usage()
-        sys.exit(1)
+    def run(self):
+        writer = Writer(self._template)
 
-    writer = Writer()
+        for file_name in self._input_file_names:
+            self._make_post(writer, file_name)
 
-    for file_name in sys.argv[1:]:
+    def _make_post(self, writer, file_name):
         with open(file_name, 'r') as input_file:
             file_contents = input_file.read()
-
             post = Post(file_name, file_contents)
             writer.write_post(post)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Generate blog post.')
+    parser.add_argument('input_file', nargs='+')
+    parser.add_argument('-t', '--template', required=True)
+    args = parser.parse_args()
+
+    petrol = Petrol(args.input_file, args.template)
+    petrol.run()

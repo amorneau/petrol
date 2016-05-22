@@ -6,15 +6,15 @@ from post import Post
 from unittest import TestCase
 
 class HtmlFormatterTests(TestCase):
-    def setUp(self):
-        self._formatter = HtmlFormatter()
+    _FORMATTER = HtmlFormatter()
+    _TEMPLATE = '<html><head></head><body>{}</body></html>'
 
     def test_title_formatting(self):
         title = 'Title'
         content = '## {}'.format(title)
 
         post = Post('dummy.md', content)
-        html = self._formatter.get_html(post)
+        html = self._FORMATTER.get_html(post, self._TEMPLATE)
 
         self.assertTrue('<h2>{}</h2>'.format(title) in html)
 
@@ -23,7 +23,7 @@ class HtmlFormatterTests(TestCase):
         content = '_{}_'.format(date)
 
         post = Post('dummy.md', content)
-        html = self._formatter.get_html(post)
+        html = self._FORMATTER.get_html(post, self._TEMPLATE)
 
         self.assertTrue('<em>{}</em>'.format(date) in html)
 
@@ -33,7 +33,7 @@ class HtmlFormatterTests(TestCase):
         content = '{}\n\n{}'.format(paragraph1, paragraph2)
 
         post = Post('dummy.md', content)
-        html = self._formatter.get_html(post)
+        html = self._FORMATTER.get_html(post, self._TEMPLATE)
 
         self.assertTrue('<p>{}</p>'.format(paragraph1) in html)
         self.assertTrue('<p>{}</p>'.format(paragraph2) in html)

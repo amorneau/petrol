@@ -40,4 +40,5 @@ class WriterTests(TestCase):
         return Post(file_name, file_content)
 
     def _make_writer(self):
-        return Writer()
+        template = '<html><head></head><body>{}</body></html>'
+        return Writer(template)

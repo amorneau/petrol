@@ -3,6 +3,9 @@ from html_formatter import HtmlFormatter
 import os.path
 
 class Writer:
+    def __init__(self, template):
+        self._template = template
+
     def write_post(self, post):
         file_name = self._make_file_name(post)
 
@@ -23,7 +26,7 @@ class Writer:
 
     def _write_content(self, file_name, post):
         formatter = HtmlFormatter()
-        content = formatter.get_html(post)
+        content = formatter.get_html(post, self._template)
 
         with open(file_name, 'w') as output_file:
             output_file.write(content)
