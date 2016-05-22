@@ -1,3 +1,5 @@
+import context
+
 from post import Post
 
 from unittest import TestCase
@@ -5,9 +7,7 @@ from unittest import TestCase
 class PostTests(TestCase):
     TITLE = 'Test Title'
     DATE = 'January 1, 2000'
-    BODY = '''First paragraph.
-
-    Second paragraph'''
+    BODY = 'First paragraph.\n\nSecond paragraph'
     CONTENT_BASE = '[TITLE]{}[/TITLE]\n[DATE]{}[/DATE]\n[BODY]{}[/BODY]'
 
     def test_blank_post(self):

@@ -1,3 +1,5 @@
+import context
+
 from post import Post
 from writer import Writer
 
