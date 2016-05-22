@@ -11,7 +11,8 @@ class Writer:
 
     def _make_file_name(self, post):
         title_with_underscores = post.title.replace(' ', '_')
-        file_name = '{}.html'.format(title_with_underscores)
+        lower_case_title = title_with_underscores.lower()
+        file_name = '{}.html'.format(lower_case_title)
 
         return file_name
 
