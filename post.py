@@ -14,23 +14,23 @@ class Post:
     '''
 
     def __init__(self, raw_content):
-        self._title = self._parse_tag(raw_content, 'TITLE')
-        self._date = self._parse_tag(raw_content, 'DATE')
-        self._body = self._parse_tag(raw_content, 'BODY')
+        self.title = self._parse_tag(raw_content, 'TITLE')
+        self.date = self._parse_tag(raw_content, 'DATE')
+        self.body = self._parse_tag(raw_content, 'BODY')
 
-        if not self._title:
+        if not self.title:
             raise ValueError('Title cannot be empty')
-        if not self._date:
+        if not self.date:
             raise ValueError('Date cannot be empty')
-        if not self._body:
+        if not self.body:
             raise ValueError('Body cannot be empty')
 
     def get_html(self):
         return self._TEMPLATE.format(
-                self._title,
-                self._title,
-                self._date,
-                self._body)
+                self.title,
+                self.title,
+                self.date,
+                self.body)
 
     def _parse_tag(self, raw_content, tag):
         tag_re = '.*\[{}\](?P<result>.+)\[/{}\].*'.format(tag, tag)
