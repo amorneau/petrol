@@ -31,19 +31,13 @@ class WriterTests(TestCase):
                 html_file = open(current_file, 'r')
                 html_content = html_file.read()
 
-                self.assertTrue(self._post.title in html_content)
-                self.assertTrue(self._post.date in html_content)
-                self.assertTrue(self._post.body in html_content)
+                self.assertTrue(self._post.content in html_content)
 
     def _make_post(self):
-        title = 'Test Title'
-        date = 'January 1, 2000'
-        body = 'First paragraph.\n\nSecond paragraph'
+        file_name = 'dummy.md'
+        file_content = 'Dummy content'
 
-        content_base = '[TITLE]{}[/TITLE]\n[DATE]{}[/DATE]\n[BODY]{}[/BODY]'
-        content = content_base.format(title, date, body)
-
-        return Post(content)
+        return Post(file_name, file_content)
 
     def _make_writer(self):
         return Writer()

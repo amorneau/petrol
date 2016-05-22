@@ -6,22 +6,34 @@ from post import Post
 from unittest import TestCase
 
 class HtmlFormatterTests(TestCase):
-    def test_html_formatting(self):
-        formatter = HtmlFormatter()
-        post = self._make_post()
+    def setUp(self):
+        self._formatter = HtmlFormatter()
 
-        html = formatter.get_html(post)
+    def test_title_formatting(self):
+        title = 'Title'
+        content = '## {}'.format(title)
 
-        self.assertTrue(post.title in html)
-        self.assertTrue(post.date in html)
-        self.assertTrue(post.body in html)
+        post = Post('dummy.md', content)
+        html = self._formatter.get_html(post)
 
-    def _make_post(self):
-        title = 'Test Title'
-        date = 'January 1, 2000'
-        body = 'First paragraph.\n\nSecond paragraph'
+        self.assertTrue('<h2>{}</h2>'.format(title) in html)
 
-        content_base = '[TITLE]{}[/TITLE]\n[DATE]{}[/DATE]\n[BODY]{}[/BODY]'
-        content = content_base.format(title, date, body)
+    def test_date_formatting(self):
+        date = 'May 23, 2016'
+        content = '_{}_'.format(date)
 
-        return Post(content)
+        post = Post('dummy.md', content)
+        html = self._formatter.get_html(post)
+
+        self.assertTrue('<em>{}</em>'.format(date) in html)
+
+    def test_multiple_paragraphs(self):
+        paragraph1 = 'First paragraph'
+        paragraph2 = 'Second paragraph'
+        content = '{}\n\n{}'.format(paragraph1, paragraph2)
+
+        post = Post('dummy.md', content)
+        html = self._formatter.get_html(post)
+
+        self.assertTrue('<p>{}</p>'.format(paragraph1) in html)
+        self.assertTrue('<p>{}</p>'.format(paragraph2) in html)

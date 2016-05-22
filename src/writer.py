@@ -12,11 +12,8 @@ class Writer:
         self._write_content(file_name, post)
 
     def _make_file_name(self, post):
-        title_with_underscores = post.title.replace(' ', '_')
-        lower_case_title = title_with_underscores.lower()
-        file_name = '{}.html'.format(lower_case_title)
-
-        return file_name
+        html_file_name = post.file_name.replace('.md', '.html')
+        return html_file_name.lower()
 
     def _file_exists(self, file_name):
         return os.path.exists(file_name)

@@ -20,5 +20,5 @@ if __name__ == '__main__':
         with open(file_name, 'r') as input_file:
             file_contents = input_file.read()
 
-            post = Post(file_contents)
+            post = Post(file_name, file_contents)
             writer.write_post(post)
