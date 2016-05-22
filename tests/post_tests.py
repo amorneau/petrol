@@ -41,8 +41,3 @@ class PostTests(TestCase):
                 self.BODY)
 
         post = Post(content)
-        formatted_content = post.get_html()
-
-        self.assertTrue(self.TITLE in formatted_content)
-        self.assertTrue(self.DATE in formatted_content)
-        self.assertTrue(self.BODY in formatted_content)

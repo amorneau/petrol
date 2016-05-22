@@ -1,5 +1,6 @@
 import context
 
+from html_formatter import HtmlFormatter
 from post import Post
 from writer import Writer
 

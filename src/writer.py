@@ -1,3 +1,5 @@
+from html_formatter import HtmlFormatter
+
 import os.path
 
 class Writer:
@@ -7,7 +9,7 @@ class Writer:
         if self._file_exists(file_name):
             self._existing_file_error(file_name)
 
-        self._write_content(file_name, post.get_html())
+        self._write_content(file_name, post)
 
     def _make_file_name(self, post):
         title_with_underscores = post.title.replace(' ', '_')
@@ -22,6 +24,9 @@ class Writer:
     def _existing_file_error(self, file_name):
         raise ValueError('File already exists: {}'.format(file_name))
 
-    def _write_content(self, file_name, content):
+    def _write_content(self, file_name, post):
+        formatter = HtmlFormatter()
+        content = formatter.get_html(post)
+
         with open(file_name, 'w') as output_file:
             output_file.write(content)
